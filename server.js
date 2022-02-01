@@ -6,13 +6,16 @@ const app = express();
 // COnnect database
 connectDB();
 
+// Init middlewahare in order for req.body to work
+app.use(express.json({ extended: false }));
+
 app.get("/", (req, res) => res.send("API Running"));
 
 // Define Routes
-app.use("/api/users", require("./routes/api/users"))
-app.use("/api/auth", require("./routes/api/auth"))
-app.use("/api/profile", require("./routes/api/profile"))
-app.use("/api/posts", require("./routes/api/post"))
+app.use("/api/users", require("./routes/api/users"));
+app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/profile", require("./routes/api/profile"));
+app.use("/api/posts", require("./routes/api/post"));
 
 // will get the port no=umber from heroko and by defaiult it is 5000
 const PORT = process.env.PORT || 5000;

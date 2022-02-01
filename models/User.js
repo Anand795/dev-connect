@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Create a model class for user 
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -15,7 +16,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   avatar: {
-    type: string,
+    type: String,
   },
   date: {
     type: Date,
