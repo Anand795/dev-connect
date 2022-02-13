@@ -99,10 +99,10 @@ router.post(
         return res.json(profile);
       }
 
-        // create a new profile
-        profile = new Profile(profileObject);
-        await profile.save();
-        res.json(profile);
+      // create a new profile
+      profile = new Profile(profileObject);
+      await profile.save();
+      res.json(profile);
     } catch (error) {
       console.error(err.message);
       res.status(500).send("Server Error");
@@ -122,7 +122,7 @@ router.get("/", async (req, res) => {
     res.json(profiles);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");    
+    res.status(500).send("Server Error");
   }
 });
 
@@ -131,7 +131,9 @@ router.get("/", async (req, res) => {
 // @access      Public
 router.get("/user/:user_id", async (req, res) => {
   try {
-    const profile = await Profile.findOne({user: req.params.user_id}).populate("user", ["name", "avatar"]);
+    const profile = await Profile.findOne({
+      user: req.params.user_id,
+    }).populate("user", ["name", "avatar"]);
 
     if (!profile) {
       return res.status(400).json({ msg: "Profile not found" });
@@ -139,10 +141,10 @@ router.get("/user/:user_id", async (req, res) => {
     res.json(profile);
   } catch (err) {
     console.error(err.message);
-    if(err.kind == "ObjectId") {
+    if (err.kind == "ObjectId") {
       return res.status(400).json({ msg: "Profile not found" });
     }
-    res.status(500).send("Server Error");    
+    res.status(500).send("Server Error");
   }
 });
 
@@ -151,20 +153,69 @@ router.get("/user/:user_id", async (req, res) => {
 // @access      Public
 router.delete("/", auth, async (req, res) => {
   try {
-
     // todo - remove users posts
 
     // Delte profile
-    await Profile.findOneAndRemove({ user: req.user.id})
+    await Profile.findOneAndRemove({ user: req.user.id });
 
     // Detele user
-    await User.findOneAndRemove({ _id: req.user.id})
+    await User.findOneAndRemove({ _id: req.user.id });
 
-    res.json({msg: "User deleted"});
+    res.json({ msg: "User deleted" });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");    
+    res.status(500).send("Server Error");
   }
 });
+
+// @route       PUT api/profile/experience
+// @desc        Add profile experience
+// @access      Private
+router.put(
+  "/experience",
+  [
+    auth,
+    [
+      check("title", "Title is required").not().isEmpty(),
+      check("company", "Company is required").not().isEmpty(),
+      check("from", "From date is required").not().isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    // Destructure the request from the body
+    const { title, company, location, from, to, current, description } =
+      req.body;
+
+    // build the experience object eg: title: title, company: company
+    const newExp = {
+      title,
+      company,
+      location,
+      from,
+      to,
+      current,
+      description,
+    };
+
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+
+      // ushift is used to add the new experience to the beginning of the array whereas push adds to the end
+      profile.experience.unshift(newExp);
+
+      await profile.save();
+
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
 
 module.exports = router;
