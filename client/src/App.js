@@ -2,7 +2,8 @@ import "./App.css";
 import { Navbar } from "./components/layout/Navbar";
 import { Landing } from "./components/Landing";
 import { Login } from "./components/auth/Login";
-import { Register } from "./components/auth/Register";
+import Register from "./components/auth/Register";
+import Alert from "./components/layout/Alert";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // Redux
@@ -13,7 +14,7 @@ const App = () => (
   <Provider store={store}>
     <Router>
       <Navbar />
-      {/* <Alert /> */}
+      <Alert />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/register" element={<Register />} />
