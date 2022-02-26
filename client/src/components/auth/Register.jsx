@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { setAlert } from "../../actions/alert";
+import PropTypes from "prop-types";
 
-export const Register = () => {
+// insterd of sending props we can destructure them
+const Register = ({ setAlert }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,7 +24,7 @@ export const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.error("passwords do not match");
+      setAlert("Passwords do not match", "danger");
     } else {
       console.log(formData);
       // We are using the axios library to make a post request to the server
@@ -104,3 +108,12 @@ export const Register = () => {
     </section>
   );
 };
+
+Register.propTypes = {
+  //short hand for PropTypes.func.isRequired -> ptfr
+  setAlert: PropTypes.func.isRequired,
+};
+
+// We are using the connect function to connect the component to the redux store.
+// We are passing in the setAlert action by doing this we can use props.setAlert
+export default connect(null, { setAlert })(Register);
