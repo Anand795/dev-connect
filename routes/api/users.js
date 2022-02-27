@@ -24,7 +24,6 @@ router.post(
   async (req, res) => {
     // in order to work req.body -> we have to initialize the middlewhare for the body parser
     // I have done it in the server.js file
-    console.log(req.body);
     // Set Error response
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -96,7 +95,7 @@ router.post(
       //   }
       // );
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(500).send("Server error");
     }
   }
