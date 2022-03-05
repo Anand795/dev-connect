@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
-import { Landing } from "./components/Landing";
+import Landing  from "./components/Landing";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Alert from "./components/layout/Alert";
@@ -24,7 +24,7 @@ const App = () => {
     }
     // try to fetch a user, if no token or invalid token we
     // will get a 401 response from our API
-    if (localStorage.token) store.dispatch(loadUser());
+   store.dispatch(loadUser());
     // store.dispatch(loadUser());
   }, []);
 
