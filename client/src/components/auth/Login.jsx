@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { setAlert } from "../../actions/alert";
 import { login } from "../../actions/authActions";
 import PropTypes from "prop-types";
 
@@ -75,4 +74,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.authReducer.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { setAlert, login })(Login);
+export default connect(mapStateToProps, { login })(Login);
