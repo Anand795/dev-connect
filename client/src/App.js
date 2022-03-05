@@ -5,6 +5,8 @@ import { Landing } from "./components/Landing";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Alert from "./components/layout/Alert";
+import Dashboard from "./components/dashboard/Dashboard";
+import PrivateRoute from "./components/routing/PrivateRoute";
 import "./App.css";
 
 // Redux
@@ -35,9 +37,12 @@ const App = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route
+            path="dashboard"
+            element={<PrivateRoute component={Dashboard} />}
+          />
           {/* <Route path="/profiles" element={<Profiles />} />
         <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/create-profile" element={<ProfileForm />} />
         <Route path="/edit-profile" element={<ProfileForm />} />
         <Route path="/add-experience" element={<AddExperience />} />
