@@ -157,6 +157,8 @@ router.get("/user/:user_id", async (req, res) => {
 router.delete("/", auth, async (req, res) => {
   try {
     // todo - remove users posts
+    // remove User posts
+    await Post.deleteMany({ user: req.user.id });
 
     // Delte profile
     await Profile.findOneAndRemove({ user: req.user.id });
@@ -324,16 +326,15 @@ router.get("/github/:username", async (req, res) => {
       `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`
     );
     const headers = {
-      'user-agent': 'node.js',
-      Authorization: `token ${config.get('githubToken')}`
+      "user-agent": "node.js",
+      Authorization: `token ${config.get("githubToken")}`,
     };
 
     const gitHubResponse = await axios.get(uri, { headers });
     return res.json(gitHubResponse.data);
-
   } catch (err) {
     console.error(err.message);
-    return res.status(404).json({ msg: 'No Github profile found' });
+    return res.status(404).json({ msg: "No Github profile found" });
   }
 });
 
