@@ -24,6 +24,12 @@ function profileReducer(state = initialState, action) {
         profile: payload,
         loading: false,
       };
+    case GET_PROFILES:
+      return {
+        ...state,
+        profiles: payload,
+        loading: false,
+      };
     case PROFILE_ERROR:
       return {
         ...state,
@@ -35,6 +41,12 @@ function profileReducer(state = initialState, action) {
         ...state,
         profile: null,
         repos: [],
+      };
+    case GET_REPOS:
+      return {
+        ...state,
+        repos: payload,
+        loading: false,
       };
     default:
       return state;
