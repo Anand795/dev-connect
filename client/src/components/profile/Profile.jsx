@@ -70,6 +70,9 @@ const Profile = ({ getProfileById, profile: { profile }, auth }) => {
                 )}
               </div>
 
+              {profile.githubusername && (
+                <ProfileGithub username={profile.githubusername} />
+              )}
             </div>
           </Fragment>
         )}
