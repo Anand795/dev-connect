@@ -1,13 +1,14 @@
-import React ,{Fragment} from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import formatDate from "../../utils/formatDate";
 import { connect } from "react-redux";
-import { addLike, removeLike } from "../../actions/post";
+import { addLike, removeLike, deletePost } from "../../actions/post";
 
 const PostItem = ({
   addLike,
   removeLike,
+  deletePost,
   auth,
   post: { _id, text, name, avatar, user, likes, comments, date },
   showActions,
@@ -24,28 +25,28 @@ const PostItem = ({
       <p className="post-date">Posted on {formatDate(date)}</p>
 
       {true && (
-          <Fragment>
-            <button
-              onClick={() => addLike(_id)}
-              type="button"
-              className="btn btn-light"
-            >
-              <i className="fas fa-thumbs-up" />{' '}
-              <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
-            </button>
-            <button
-              onClick={() => removeLike(_id)}
-              type="button"
-              className="btn btn-light"
-            >
-              <i className="fas fa-thumbs-down" />
-            </button>
-            {/* <Link to={`/posts/${_id}`} className="btn btn-primary">
+        <Fragment>
+          <button
+            onClick={() => addLike(_id)}
+            type="button"
+            className="btn btn-light"
+          >
+            <i className="fas fa-thumbs-up" />{" "}
+            <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+          </button>
+          <button
+            onClick={() => removeLike(_id)}
+            type="button"
+            className="btn btn-light"
+          >
+            <i className="fas fa-thumbs-down" />
+          </button>
+          {/* <Link to={`/posts/${_id}`} className="btn btn-primary">
               Discussion{' '}
               {comments.length > 0 && (
                 <span className="comment-count">{comments.length}</span>
               )}
-            </Link>
+            </Link> */}
             {!auth.loading && user === auth.user._id && (
               <button
                 onClick={() => deletePost(_id)}
@@ -54,9 +55,9 @@ const PostItem = ({
               >
                 <i className="fas fa-times" />
               </button>
-            )} */}
-          </Fragment>
-        )}
+            )}
+        </Fragment>
+      )}
     </div>
   </div>
 );
@@ -66,7 +67,7 @@ PostItem.propTypes = {
   auth: PropTypes.object.isRequired,
   addLike: PropTypes.func.isRequired,
   removeLike: PropTypes.func.isRequired,
-  // deletePost: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
   // showActions: PropTypes.bool
 };
 
@@ -74,4 +75,6 @@ const mapStateToProps = (state) => ({
   auth: state.authReducer,
 });
 
-export default connect(mapStateToProps, { addLike, removeLike })(PostItem);
+export default connect(mapStateToProps, { addLike, removeLike, deletePost })(
+  PostItem
+);
