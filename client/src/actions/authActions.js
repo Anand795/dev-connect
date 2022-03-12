@@ -7,7 +7,6 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_PROFILE,
 } from "../actions/types";
 import api from "../utils/api";
 
