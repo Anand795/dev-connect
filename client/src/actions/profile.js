@@ -47,7 +47,6 @@ export const getProfiles = () => async (dispatch) => {
 
 // Get profile by ID
 export const getProfileById = (userId) => async (dispatch) => {
-  dispatch({ type: CLEAR_PROFILE });
   try {
     const res = await api.get(`/profile/user/${userId}`);
 
