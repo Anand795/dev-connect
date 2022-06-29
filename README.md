@@ -6,9 +6,9 @@ DevConnect is a social network platform specifically for developers built with M
 Application based on udemy course on MERN stack development created by Brad Traversy. It is in depth full stack social network application using Node.js, Express, React, Redux and MongoDB along with ES6+.
 
 ## Run Locally
-1. Clone Project: https://github.com/Anand795/dev-connect.git
-2. Install Dependencies: npm install
-3. Run Project: npm run dev ( concurrently runs both backend and react )
+1. **Clone Project:** https://github.com/Anand795/dev-connect.git
+2. **Install Dependencies:** npm install
+3. **Run Project:** npm run dev ( concurrently runs both backend and react )
 
 ## Tech Stack 
 * React 
