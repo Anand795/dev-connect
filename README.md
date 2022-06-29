@@ -12,5 +12,11 @@ Run Project: npm run dev ( concurrently runs both backend and react )
 
 ## Tech Stack 
 * React 
+* React router v6
+* Redux
+* MongoDB 
+* Express
+* NodeJs 
 * Styled componets
 * Framer Motion
+* Heroku
