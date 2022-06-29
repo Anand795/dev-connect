@@ -11,6 +11,6 @@ Install Dependencies: npm install
 Run Project: npm run dev ( concurrently runs both backend and react )
 
 ## Tech Stack 
-*React 
-*Styled componets
-*Framer Motion
+* React 
+* Styled componets
+* Framer Motion
