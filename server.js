@@ -19,26 +19,17 @@ app.use("/api/profile", require("./routes/api/profile"));
 app.use("/api/posts", require("./routes/api/post"));
 
 // Serve static assets in production
-// if (process.env.NODE_ENV === "production") {
-// Set static folder
-// app.use(express.static("client/build"));
+// EDIT-1: Since heroku has depcrated we are using cyclic.sh
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static("client/build"));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-// });
-// }
-console.log("*************************************", __dirname)
-app.use(express.static(path.join(__dirname, "./client/build")));
-app.get("*", function (_, res) {
-  res.sendFile(
-    path.join(__dirname, "./client/build/index.html"),
-    function (err) {
-      res.status(500).send(err);
-    }
-  );
-});
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
-// will get the port noumber from heroko and by defaiult it is 5000
+// will get the port number from heroku and by default it is 5000
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
