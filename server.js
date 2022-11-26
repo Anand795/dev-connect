@@ -27,7 +27,7 @@ app.use("/api/posts", require("./routes/api/post"));
 //   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 // });
 // }
-
+console.log("*************************************", __dirname)
 app.use(express.static(path.join(__dirname, "./client/build")));
 app.get("*", function (_, res) {
   res.sendFile(
