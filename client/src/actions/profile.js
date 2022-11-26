@@ -6,6 +6,7 @@ import {
   GET_PROFILES,
   GET_REPOS,
   LOGOUT,
+  NO_REPOS,
   PROFILE_ERROR,
   UPDATE_PROFILE,
 } from "./types";
@@ -47,7 +48,6 @@ export const getProfiles = () => async (dispatch) => {
 
 // Get profile by ID
 export const getProfileById = (userId) => async (dispatch) => {
-  dispatch({ type: CLEAR_PROFILE });
   try {
     const res = await api.get(`/profile/user/${userId}`);
 
@@ -74,8 +74,7 @@ export const getGithubRepos = (username) => async (dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      type: NO_REPOS,
     });
   }
 };
