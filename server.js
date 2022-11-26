@@ -21,12 +21,22 @@ app.use("/api/posts", require("./routes/api/post"));
 // Serve static assets in production
 // if (process.env.NODE_ENV === "production") {
 // Set static folder
-app.use(express.static("client/build"));
+// app.use(express.static("client/build"));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+// });
 // }
+
+app.use(express.static(path.join(__dirname, "./client/build")));
+app.get("*", function (_, res) {
+  res.sendFile(
+    path.join(__dirname, "./client/build/index.html"),
+    function (err) {
+      res.status(500).send(err);
+    }
+  );
+});
 
 // will get the port noumber from heroko and by defaiult it is 5000
 const PORT = process.env.PORT || 5000;
